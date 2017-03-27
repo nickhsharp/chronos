@@ -1,0 +1,12 @@
+{
+  "aws": {
+    "region": "us-west-2"
+  },
+  "dynamo": {
+    "chronosTasks": "chronos-tasks"
+  },
+  "kinesis": {
+    "chronosTasks": "chronos-tasks"
+  },
+  "DEBUG": true
+}
