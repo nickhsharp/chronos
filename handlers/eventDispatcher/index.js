@@ -14,27 +14,27 @@ module.exports.handler = function(event, context, callback) {
   return Promise.all(event.Records.map((record) => {
     const payload = new Buffer(record.kinesis.data, "base64").toString("utf8");
     
-    let data;
+    let item;
     try {
-      data = JSON.parse(payload);
+      item = JSON.parse(payload);
     } catch(err) {
-      data = payload;
+      item = payload;
     }
 
-    logger.log('Decoded record payload:', data);
+    logger.log('Decoded record payload:', item);
 
     /*
-      type: StepFunction | Lambda | SNS | SQS | Kinesis | SES
+      type: StepFunction | Lambda | SNS | SQS | Kinesis | SES | Https
       Does a best effort send.  In the case of a fail it'll push to a fail queue
     */
-    return conns[data.type](data).catch((err) => {
+    return conns[item.target.type](item).catch((err) => {
       
       failures.push({
         Data: utils.LOG.stringify({
-          data: data,
+          data: item,
           err: err,
         }),
-        PartitionKey: data.timeId
+        PartitionKey: item.timeId
       });
 
       return;

@@ -6,7 +6,8 @@
     "chronosTasks": "chronos-tasks"
   },
   "kinesis": {
-    "chronosTasks": "chronos-tasks"
+    "chronosTasks": "chronos-tasks",
+    "chronosTasksDeadletter": "chronos-tasks-deadletter"
   },
   "DEBUG": true
 }
